@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "@bjorn3/browser_wasi_shim": "^0.3.0"
+  },
+  "scripts": {
+    "bench-native": "cargo run --release -- --bench --save-baseline native",
+    "bench-wasmtime": "cargo run --release --target wasm32-wasip1 -- --bench --baseline native",
+    "bench-node": "cargo build --release --target wasm32-wasip1 && node ./run-node.js ./target/wasm32-wasip1/release/wasm-benchmark-i128.wasm --bench --baseline native"
+  }
+}

@@ -4,12 +4,13 @@ version = "0.1.0"
 edition = "2021"
 publish = false
 
-[dev-dependencies]
+[dependencies]
 blind-rsa-signatures = "0.14.1"
 criterion = { version = "0.5.1", default-features = false }
 num-bigint-dig = "0.8.4"
 rand = { version = "0.8.5", features = ['small_rng'] }
+getrandom = "0.2.15"
+wasm-bindgen = { version = "0.2.93", optional = true }
 
-[[bench]]
-name = "all"
-harness = false
+[features]
+js = ['getrandom/js', 'dep:wasm-bindgen']
