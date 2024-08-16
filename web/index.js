@@ -1,5 +1,6 @@
 import { WASI, File, Directory, OpenFile, ConsoleStdout, PreopenDirectory }
-  from "https://unpkg.com/@bjorn3/browser_wasi_shim@0.3.0/dist/index.js";
+  from "../node_modules/@bjorn3/browser_wasi_shim/dist/index.js";
+import { listBenchmarks } from './list-benchmarks.js';
 
 const wasm = await WebAssembly.compileStreaming(fetch("target/wasm32-wasip1/release/wasm-benchmark-i128.wasm"));
 
@@ -17,28 +18,7 @@ function appendStderr(msg) {
   terminal.write(msg);
 }
 
-const stdin = new OpenFile(new File([]));
-
-let benchmarks = [];
-let fds = [
-  stdin,
-  ConsoleStdout.lineBuffered(msg => {
-    if (msg == '')
-      return;
-    const i = msg.indexOf(':');
-    if (i != -1)
-      benchmarks.push(msg.substring(0, i));
-  }),
-  ConsoleStdout.lineBuffered(appendStderr),
-];
-let args = ["foo.wasm", "--list"]
-let env = ["FOO=bar"];
-let wasi = new WASI(args, env, fds);
-
-let inst = await WebAssembly.instantiate(wasm, {
-    "wasi_snapshot_preview1": wasi.wasiImport,
-});
-wasi.start(inst);
+let benchmarks = await listBenchmarks(wasm);
 
 const benchmarker = new Worker("./web/worker.js", { type: "module" });
 
@@ -53,7 +33,7 @@ benchmarker.onmessage = (e) => {
     console.log('unknown from worker', e);
 };
 benchmarker.onerror = (e) => {
-  console.log('worker error', e);
+  console.log('worker error', e, e.data);
 };
 
 for (let benchmark of benchmarks) {
