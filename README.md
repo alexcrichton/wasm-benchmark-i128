@@ -10,7 +10,7 @@ First install some dependencies:
   * run `rustup target add wasm32-wasip1` for a compilation target
 * [Wasmtime](https://wasmtime.dev/)
 * [Node.js & NPM](https://nodejs.org/)
-
+* [JSVU][jsvu] to get some JS runtimes
 
 Then collect data for your native platform:
 
@@ -68,3 +68,14 @@ $ v8 --module v8.js -- \
 
 Note that this will "hang" for a moment without intermediate output as results
 are generated.
+
+### JSC
+
+Use [jsvu] to get a `jsc` executable then:
+
+```
+$ cargo build --release --target wasm32-wasip1
+$ jsc -m jsc.js -- \
+    ./target/wasm32-wasip1/release/wasm-benchmark-i128.wasm \
+    --bench --baseline native
+```
