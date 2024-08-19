@@ -1,7 +1,7 @@
 use criterion::Criterion;
 use num_bigint_dig::RandBigInt;
-use rand::rngs::SmallRng;
 use rand::SeedableRng;
+use rand_xoshiro::Xoshiro256StarStar;
 use std::hint::black_box;
 
 // Adapted from
@@ -122,7 +122,7 @@ pub fn lehmer(c: &mut Criterion) {
 }
 
 pub fn bignum(c: &mut Criterion) {
-    let mut rng = SmallRng::seed_from_u64(10);
+    let mut rng = Xoshiro256StarStar::seed_from_u64(31);
     let x = rng.gen_bigint(1 << 16);
     let y = rng.gen_bigint(1 << 16);
 
