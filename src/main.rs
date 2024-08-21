@@ -16,6 +16,7 @@ fn main() {
     shift::shl(&mut c);
     shift::shr(&mut c);
     div::bignum(&mut c);
+    cmp::sort(&mut c);
 
     // seems to not be too useful since the underlying algorithm doesn't
     // actually use 128-bit integers.
