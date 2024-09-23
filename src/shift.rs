@@ -21,7 +21,7 @@ pub fn shr(c: &mut Criterion) {
         b.iter(|| {
             let mut m = n.clone();
             for i in 0..50 {
-                m = m << i;
+                m = m >> i;
             }
         })
     });
