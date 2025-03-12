@@ -18,6 +18,19 @@ Then collect data for your native platform:
 $ cargo run --release -- --bench --save-baseline native
 ```
 
+Instructions below are how to build the benchmark program, a Rust binary, and
+then compare the benchmark results in wasm to those that are collected above on
+native. By default the wide-arithmetic proposal is disabled in Rust so the
+instructions below collect baseline "wasm today" data. To collect data with wide
+arithmetic use:
+
+```
+$ export CARGO_TARGET_WASM32_WASIP1_RUSTFLAGS=-Ctarget-feature=+wide-arithmetic
+```
+
+Set that before the `cargo build` or the `cargo run` command to pass the right
+flags to the compiler to enable wide-arithmetic instructions.
+
 ### Wasmtime
 
 ```
