@@ -31,6 +31,12 @@ $ export CARGO_TARGET_WASM32_WASIP1_RUSTFLAGS=-Ctarget-feature=+wide-arithmetic
 Set that before the `cargo build` or the `cargo run` command to pass the right
 flags to the compiler to enable wide-arithmetic instructions.
 
+Note that support for `-Ctarget-feature=+wide-arithmetic` is only in Rust 1.87.0
+which is currently the Nightly Rust channel. That means you'll need to be using
+a Nightly Rust compiler and `rustc -vV` should LLVM version 20.1.0. To run the
+Nightly compiler you'll use `cargo +nightly run ...` or `cargo +nightly build
+...`, basically add `+nightly` right after the `cargo` executable.
+
 ### Wasmtime
 
 ```
