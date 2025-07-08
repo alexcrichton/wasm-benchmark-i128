@@ -128,3 +128,22 @@ pub fn bignum(c: &mut Criterion) {
 
     c.bench_function("mul-bignum", move |b| b.iter(|| &x * &y));
 }
+
+#[cfg(feature = "i256")]
+pub fn mul256(c: &mut Criterion) {
+    use std::time::Instant;
+
+    extern "C" {
+        fn bench_mul256(retptr: &mut [u64; 4], amt: u64);
+    }
+
+    c.bench_function("mul256", move |b| {
+        b.iter_custom(|amt| {
+            let start = Instant::now();
+            unsafe {
+                bench_mul256(&mut [0; 4], amt);
+            }
+            start.elapsed()
+        })
+    });
+}

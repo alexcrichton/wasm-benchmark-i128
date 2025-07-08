@@ -27,5 +27,11 @@ fn main() {
         cmp::le_s(&mut c);
     }
 
+    #[cfg(feature = "i256")]
+    {
+        add::add256(&mut c);
+        mul::mul256(&mut c);
+    }
+
     c.final_summary();
 }
