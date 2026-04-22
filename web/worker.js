@@ -1,5 +1,5 @@
 import { WASI, File, Directory, OpenFile, ConsoleStdout, PreopenDirectory }
-  from "../node_modules/@bjorn3/browser_wasi_shim/dist/index.js";
+  from "../extra_modules/@bjorn3/browser_wasi_shim/dist/index.js";
 import { loadPreopens } from './list-benchmarks.js';
 
 let preopenDir = null;

@@ -1,5 +1,5 @@
 import { WASI, File, Directory, OpenFile, ConsoleStdout, PreopenDirectory }
-  from "../node_modules/@bjorn3/browser_wasi_shim/dist/index.js";
+  from "../extra_modules/@bjorn3/browser_wasi_shim/dist/index.js";
 import { listBenchmarks } from './list-benchmarks.js';
 
 const wasm = await WebAssembly.compileStreaming(fetch("target/wasm32-wasip1/release/wasm-benchmark-i128.wasm"));
